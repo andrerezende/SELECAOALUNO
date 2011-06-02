@@ -41,39 +41,10 @@ SELECT
 	inscrito.vaga_especial AS inscrito_vaga_especial
 FROM
 	inscrito
-		INNER JOIN pagamentos ON pagamentos.id_inscrito = inscrito.id
+		INNER JOIN pagamentos ON pagamentos.id_inscrito = inscrito.numinscricao
 		INNER JOIN campus ON campus.id = inscrito.campus
 		INNER JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
 		INNER JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
-GROUP BY
-	campus.id,
-	campus.nome,
-	curso.nome,
-	inscrito.nome,
-	inscrito.numinscricao,
-	inscrito.cpf,
-	inscrito.rg,
-	inscrito.orgaoexpedidor,
-	inscrito.uf,
-	inscrito.dataexpedicao,
-	inscrito.nacionalidade,
-	inscrito.datanascimento,
-	inscrito.sexo,
-	inscrito.endereco,
-	inscrito.cep,
-	inscrito.cidade,
-	inscrito.estado,
-	inscrito.telefone,
-	inscrito.celular,
-	inscrito.email,
-	inscrito.estadocivil,
-	inscrito.especial,
-	inscrito.especial_descricao,
-	inscrito.isencao,
-	inscrito.cadastro_unico,
-	inscrito.especial_prova,
-	inscrito.especial_prova_descricao,
-	inscrito.vaga_especial
 ORDER BY campus.id, inscrito.id
 SQL;
 $objPHPExcel = new PHPExcel();
@@ -92,16 +63,16 @@ $colunas = array(
 	'A' => 'CAMPUS',
 	'B' => 'CURSO',
 	'C' => 'INSCRITO',
-	'D' => utf8_encode('Nº INSCRIÇÃO'),
+	'D' => utf8_encode('Nï¿½ INSCRIï¿½ï¿½O'),
 	'E' => 'CPF',
 	'F' => 'RG',
-	'G' => utf8_encode('ORGÃO EXPEDIDOR'),
+	'G' => utf8_encode('ORGï¿½O EXPEDIDOR'),
 	'H' => 'UF',
-	'I' => utf8_encode('DATA DE EXPEDIÇÃO'),
+	'I' => utf8_encode('DATA DE EXPEDIï¿½ï¿½O'),
 	'J' => 'NACIONALIDADE',
 	'K' => 'DATA DE NASCIMENTO',
 	'L' => 'SEXO',
-	'M' => utf8_encode('ENDEREÇO'),
+	'M' => utf8_encode('ENDEREï¿½O'),
 	'N' => 'CEP',
 	'O' => 'CIDADE',
 	'P' => 'ESTADO',
@@ -110,11 +81,11 @@ $colunas = array(
 	'S' => 'EMAIL',
 	'T' => 'ESTADO CIVIL',
 	'U' => utf8_encode('NECESSIDADE ESPECIAL?'),
-	'V' => utf8_encode('DESCRIÇÃO NECESSIDADE ESPECIAL'),
-	'W' => utf8_encode('ISENÇÃO DE TAXA'),
-	'X' => utf8_encode('CADASTRO ÚNICO (NIS)'),
-	'Y' => utf8_encode('CONDIÇÕES ESPECIAIS PARA REALIZAÇÃO DA PROVA'),
-	'Z' => utf8_encode('DESCRIÇÃO CONDIÇÕES ESPECIAIS PARA REALIZAÇÃO DA PROVA'),
+	'V' => utf8_encode('DESCRIï¿½ï¿½O NECESSIDADE ESPECIAL'),
+	'W' => utf8_encode('ISENï¿½ï¿½O DE TAXA'),
+	'X' => utf8_encode('CADASTRO ï¿½NICO (NIS)'),
+	'Y' => utf8_encode('CONDIï¿½ï¿½ES ESPECIAIS PARA REALIZAï¿½ï¿½O DA PROVA'),
+	'Z' => utf8_encode('DESCRIï¿½ï¿½O CONDIï¿½ï¿½ES ESPECIAIS PARA REALIZAï¿½ï¿½O DA PROVA'),
 	'AA' => utf8_encode('CONCORRE AS VAGAS DESTINADAS A CANDIDATOS COM NECESSIDADES ESPECIAIS'),
 );
 
@@ -129,17 +100,17 @@ while ($row = mysql_fetch_assoc($query)) {
 			if ($campus_id > 1) {
 				$objPHPExcel->createSheet();
 				$objPHPExcel->setActiveSheetIndex($objPHPExcel->getActiveSheetIndex() + 1);
-			}				
+			}
 			$objPHPExcel->getActiveSheet()->setTitle($val[1]);
 			setCabecalho($objPHPExcel, $colunas);
-			$linha = 2;			
+			$linha = 2;
 	}
 	$col = 1;
 	foreach ($colunas as $coluna => $valor) {
 		if ($val[$col] == null) {
 			$objPHPExcel->getActiveSheet()->SetCellValue($coluna.$linha, '---');
 		} else {
-			$objPHPExcel->getActiveSheet()->SetCellValue($coluna.$linha, utf8_encode($val[$col]));			
+			$objPHPExcel->getActiveSheet()->SetCellValue($coluna.$linha, utf8_encode($val[$col]));
 		}
 		$col++;
 	}
