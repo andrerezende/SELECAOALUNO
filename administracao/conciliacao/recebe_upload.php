@@ -78,7 +78,7 @@ if (array_search($extensao, $_UP['extensoes']) === false) {
 			<input type='hidden' name='caminho' value='" .$caminho_total."'/>
 			<input type='hidden' name='nome' value='" .$nome_final."'/>
 			<input type='submit' value='Importar' />
-			</form>";
+		</form>";
 	} else {
 		echo "Não foi possível enviar o arquivo, tente novamente";
 	}
