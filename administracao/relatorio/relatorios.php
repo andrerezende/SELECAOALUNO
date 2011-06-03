@@ -128,6 +128,20 @@ else :
 			</form>
 		</tr>
 		<tr>
+			<form id='cotasform' name='cotasform' action='relatorio_cotas.php' method='post'>
+				<input type='hidden' value='candidatos_por_cotas' name="tipo" />
+				<td><b>Candidatos por Cotas</b></td>
+				<td>&nbsp;</td>
+				<td>
+					<select name="cotas_filtro" id="cotas_filtro">
+						<option value="todos">Todos</option>
+						<option value="necessidade_especial">Necessidade Especial</option>
+						<option value="escola_publica">Escola P&uacute;blica</option>
+					</select>
+				</td>
+				<td><input name="visualizar_cotistas" type="submit" id="visualizar_cotistas" value="Visualizar"></td>
+			</form>
+		</tr>
 		<tr>
 			<th>Relat&oacute;rio</th>
 			<th colspan="2">Filtro de Pagamento</th>
