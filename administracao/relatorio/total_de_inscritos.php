@@ -19,14 +19,19 @@ SELECT
 	COUNT(inscrito.id) AS qtd_inscrito,
 	campus.nome
 SQL;
-	if ($_POST['filtro_pagamento']) {
+	if ($_POST['filtro_pagamento'] === '1') {
 		$sql .= <<<SQL
 		, pagamentos.datapagamento
 		FROM campus
 			INNER JOIN inscrito ON campus.id = inscrito.campus
-			INNER JOIN pagamentos ON pagamentos.id_inscrito = inscrito.numinscricao
+			INNER JOIN pagamentos ON ABS(pagamentos.id_inscrito) = ABS(inscrito.numinscricao)
+SQL;
+	} elseif ($_POST['filtro_pagamento'] === "0") {
+		$sql .= <<<SQL
+		FROM campus
+			INNER JOIN inscrito ON campus.id = inscrito.campus
 		WHERE
-			pagamentos.datapagamento IS NOT NULL
+			ABS(inscrito.numinscricao) NOT IN (SELECT ABS(id_inscrito) FROM pagamentos)
 SQL;
 	} else {
 		$sql .= <<<SQL
@@ -59,15 +64,16 @@ SQL;
 			INNER JOIN inscrito_curso ON curso.cod_curso = inscrito_curso.cod_curso
 			INNER JOIN campus ON campus.id = curso.campus
 			INNER JOIN inscrito ON inscrito_curso.id_inscrito = inscrito.id
-			INNER JOIN pagamentos ON pagamentos.id_inscrito = inscrito.numinscricao
-		WHERE
-			pagamentos.datapagamento IS NOT NULL
+			INNER JOIN pagamentos ON ABS(pagamentos.id_inscrito) = ABS(inscrito.numinscricao)
 SQL;
 	} else {
 		$sql .= <<<SQL
 		FROM curso
 			INNER JOIN inscrito_curso ON curso.cod_curso = inscrito_curso.cod_curso
+			INNER JOIN inscrito ON inscrito_curso.id_inscrito = inscrito.id
 			INNER JOIN campus ON campus.id = curso.campus
+		WHERE
+			ABS(inscrito.numinscricao) NOT IN (SELECT ABS(id_inscrito) FROM pagamentos)
 SQL;
 	}
 	$sql .= <<<SQL
@@ -77,7 +83,8 @@ ORDER BY
 	curso.cod_curso
 SQL;
 }
-
+//var_dump($_POST);
+//var_dump($sql);exit;
 $objPHPExcel = new PHPExcel();
 
 function setCabecalho($objPHPExcel, $colunas) {
