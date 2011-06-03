@@ -97,7 +97,7 @@ SQL;
 				INNER JOIN campus ON campus.id = inscrito.campus
 				INNER JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
 				INNER JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
-				INNER JOIN pagamentos ON pagamentos.id_inscrito = inscrito.id
+				INNER JOIN pagamentos ON pagamentos.id_inscrito = inscrito.numinscricao
 SQL;
 	} elseif ($_POST['filtro_pagamento'] === 0) {
 		$sql .= <<<SQL
@@ -107,7 +107,7 @@ SQL;
 				INNER JOIN campus ON campus.id = inscrito.campus
 				INNER JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
 				INNER JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
-				LEFT JOIN pagamentos ON pagamentos.id_inscrito = inscrito.id
+				LEFT JOIN pagamentos ON pagamentos.id_inscrito = inscrito.numinscricao
 		WHERE pagamentos.id IS NULL
 SQL;
 	} else {
@@ -122,38 +122,8 @@ SQL;
 	}
 }
 $sql .= <<<SQL
- GROUP BY
-	campus.id,
-	campus.nome,
-	curso.nome,
-	localprova.nome,
-	inscrito.nome,
-	inscrito.numinscricao,
-	inscrito.cpf,
-	inscrito.rg,
-	inscrito.orgaoexpedidor,
-	inscrito.uf,
-	inscrito.dataexpedicao,
-	inscrito.nacionalidade,
-	inscrito.datanascimento,
-	inscrito.sexo,
-	inscrito.endereco,
-	inscrito.cep,
-	inscrito.cidade,
-	inscrito.estado,
-	inscrito.telefone,
-	inscrito.celular,
-	inscrito.email,
-	inscrito.estadocivil,
-	inscrito.especial,
-	inscrito.especial_descricao,
-	inscrito.isencao,
-	inscrito.especial_prova,
-	inscrito.especial_prova_descricao,
-	inscrito.vaga_especial
-ORDER BY campus.id, inscrito.id
+ ORDER BY campus.id, inscrito.id
 SQL;
-
 $objPHPExcel = new PHPExcel();
 
 function setCabecalho($objPHPExcel, $colunas) {
@@ -200,7 +170,6 @@ $linha = 2;
 $campus_id = null;
 while ($row = mysql_fetch_assoc($query)) {
 	$val = array_values($row);
-//	var_dump($val);exit;
 	if ($campus_id != $val[0]) {
 		$campus_id = $val[0];
 		if ($campus_id > 1 && $numResults > 1) {

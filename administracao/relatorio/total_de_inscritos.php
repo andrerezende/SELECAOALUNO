@@ -24,7 +24,7 @@ SQL;
 		, pagamentos.datapagamento
 		FROM campus
 			INNER JOIN inscrito ON campus.id = inscrito.campus
-			INNER JOIN pagamentos ON pagamentos.id_inscrito = inscrito.id
+			INNER JOIN pagamentos ON pagamentos.id_inscrito = inscrito.numinscricao
 		WHERE
 			pagamentos.datapagamento IS NOT NULL
 SQL;
@@ -58,7 +58,8 @@ SQL;
 		FROM curso
 			INNER JOIN inscrito_curso ON curso.cod_curso = inscrito_curso.cod_curso
 			INNER JOIN campus ON campus.id = curso.campus
-			INNER JOIN pagamentos ON pagamentos.id_inscrito = inscrito_curso.id_inscrito
+			INNER JOIN inscrito ON inscrito_curso.id_inscrito = inscrito.id
+			INNER JOIN pagamentos ON pagamentos.id_inscrito = inscrito.numinscricao
 		WHERE
 			pagamentos.datapagamento IS NOT NULL
 SQL;
