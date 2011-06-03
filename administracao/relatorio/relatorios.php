@@ -128,6 +128,11 @@ else :
 			</form>
 		</tr>
 		<tr>
+			<th>Relat&oacute;rio</th>
+			<th colspan="2">Filtro de Pagamento</th>
+			<th>&nbsp;</th>
+		</tr>
+		<tr>
 			<form id='cotasform' name='cotasform' action='relatorio_cotas.php' method='post'>
 				<input type='hidden' value='candidatos_por_cotas' name="tipo" />
 				<td><b>Candidatos por Cotas</b></td>
@@ -143,10 +148,6 @@ else :
 			</form>
 		</tr>
 		<tr>
-			<th>Relat&oacute;rio</th>
-			<th colspan="2">Filtro de Pagamento</th>
-			<th>&nbsp;</th>
-		</tr>
 			<form id='campusform' name='campusform' action='total_de_inscritos.php' method='post'>
 				<input type='hidden' value='inscritos_por_campus' name="tipo" />
 				<td><b>Total de Inscritos por Campus</b></td>

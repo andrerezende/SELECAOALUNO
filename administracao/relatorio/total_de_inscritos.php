@@ -57,23 +57,30 @@ SELECT
 	curso.nome AS curso,
 	COUNT( inscrito_curso.id_inscrito ) AS qtd_inscrito
 SQL;
-	if ($_POST['filtro_pagamento']) {
+	if ($_POST['filtro_pagamento'] === '1') {
 		$sql .= <<<SQL
 		, pagamentos.datapagamento
 		FROM curso
-			INNER JOIN inscrito_curso ON curso.cod_curso = inscrito_curso.cod_curso
+			LEFT JOIN inscrito_curso ON curso.cod_curso = inscrito_curso.cod_curso
 			INNER JOIN campus ON campus.id = curso.campus
-			INNER JOIN inscrito ON inscrito_curso.id_inscrito = inscrito.id
+			LEFT JOIN inscrito ON inscrito_curso.id_inscrito = inscrito.id
 			INNER JOIN pagamentos ON ABS(pagamentos.id_inscrito) = ABS(inscrito.numinscricao)
+SQL;
+	} elseif ($_POST['filtro_pagamento'] === "0") {
+		$sql .= <<<SQL
+		FROM curso
+			LEFT JOIN inscrito_curso ON curso.cod_curso = inscrito_curso.cod_curso
+			LEFT JOIN inscrito ON inscrito_curso.id_inscrito = inscrito.id
+			INNER JOIN campus ON campus.id = curso.campus
+		WHERE
+			ABS(inscrito.numinscricao) NOT IN (SELECT ABS(id_inscrito) FROM pagamentos)
 SQL;
 	} else {
 		$sql .= <<<SQL
 		FROM curso
-			INNER JOIN inscrito_curso ON curso.cod_curso = inscrito_curso.cod_curso
-			INNER JOIN inscrito ON inscrito_curso.id_inscrito = inscrito.id
 			INNER JOIN campus ON campus.id = curso.campus
-		WHERE
-			ABS(inscrito.numinscricao) NOT IN (SELECT ABS(id_inscrito) FROM pagamentos)
+			LEFT JOIN inscrito_curso ON curso.cod_curso = inscrito_curso.cod_curso
+			LEFT JOIN inscrito ON inscrito_curso.id_inscrito = inscrito.id
 SQL;
 	}
 	$sql .= <<<SQL
