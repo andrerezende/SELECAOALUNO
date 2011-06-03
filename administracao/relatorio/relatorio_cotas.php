@@ -46,16 +46,16 @@ if ($_POST['cotas_filtro'] == 'todos') {
 }
 
 $where = array(
-	'necessidade_especial' => ' WHERE inscrito.especial not REGEXP \'N(A|Ã|&Atilde;)O\'',
-	'escola_publica' => ' WHERE inscrito.especial not REGEXP \'N(A|Ã|&Atilde;)O\' OR inscrito.vaga_rede_publica = \'SIM\'',
+	'necessidade_especial' => ' WHERE inscrito.vaga_especial = \'SIM\'',
+	'escola_publica' => ' WHERE inscrito.vaga_especial = \'SIM\' OR inscrito.vaga_rede_publica = \'SIM\'',
 );
 
 if ($_POST['cotas_filtro'] == 'necessidade_especial') {
-	$where = ' WHERE inscrito.especial not REGEXP \'N(A|Ã|&Atilde;)O\'';
+	$where = ' WHERE inscrito.vaga_especial = \'SIM\'';
 } elseif ($_POST['cotas_filtro'] == 'escola_publica') {
 	$where = ' WHERE inscrito.vaga_rede_publica = \'SIM\'';
 } else {
-	$where = ' WHERE inscrito.especial not REGEXP \'N(A|Ã|&Atilde;)O\' OR inscrito.vaga_rede_publica = \'SIM\'';
+	$where = ' WHERE inscrito.vaga_especial = \'SIM\' OR inscrito.vaga_rede_publica = \'SIM\'';
 }
 
 $sql = <<<SQL
@@ -93,12 +93,13 @@ FROM
 		INNER JOIN campus ON campus.id = inscrito.campus
 		INNER JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
 		INNER JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
+		INNER JOIN pagamentos ON ABS(pagamentos.id_inscrito) = ABS(inscrito.numinscricao)
 SQL;
 if (!is_array($where)) {
 	$sql .= $where;
 }
 $sql .= <<<SQL
- ORDER BY inscrito.especial, inscrito.vaga_rede_publica
+ ORDER BY campus.id, curso.cod_curso
 SQL;
 
 $objPHPExcel = new PHPExcel();

@@ -9,7 +9,7 @@ $banco = DB::getInstance();
 $conexao = $banco->ConectarDB();
 
 $where = array(
-	'necessidade_especial' => 'WHERE inscrito.especial not REGEXP \'N(A|Ã|&Atilde;)O\'',
+	'necessidade_especial' => 'WHERE inscrito.vaga_especial = \'SIM\'',
 	'escola_publica' => 'WHERE inscrito.vaga_rede_publica = \'SIM\'',
 );
 
@@ -49,8 +49,9 @@ FROM
 		INNER JOIN campus ON campus.id = inscrito.campus
 		INNER JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
 		INNER JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
+		INNER JOIN pagamentos ON ABS(pagamentos.id_inscrito) = ABS(inscrito.numinscricao)
 {$value}
- ORDER BY inscrito.especial, inscrito.vaga_rede_publica
+ ORDER BY inscrito.vaga_especial, inscrito.vaga_rede_publica, campus.id, curso.cod_curso
 SQL;
 }
 
