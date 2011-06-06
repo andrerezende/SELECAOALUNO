@@ -43,7 +43,8 @@ SQL;
  GROUP BY
 	campus.id
 ORDER BY
-	campus.id;
+	campus.id
+LIMIT 2000
 SQL;
 } elseif ($_POST['tipo'] == 'inscritos_por_curso') {
 	$colunas = array(
@@ -55,7 +56,7 @@ SQL;
 SELECT
 	campus.nome AS campus,
 	curso.nome AS curso,
-	COUNT( inscrito_curso.id_inscrito ) AS qtd_inscrito
+	COUNT(inscrito.id) AS qtd_inscrito
 SQL;
 	if ($_POST['filtro_pagamento'] === '1') {
 		$sql .= <<<SQL
@@ -88,10 +89,10 @@ SQL;
 	curso.cod_curso
 ORDER BY
 	curso.cod_curso
+LIMIT 2000
 SQL;
 }
-//var_dump($_POST);
-//var_dump($sql);exit;
+
 $objPHPExcel = new PHPExcel();
 
 function setCabecalho($objPHPExcel, $colunas) {

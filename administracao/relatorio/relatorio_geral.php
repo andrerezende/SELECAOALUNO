@@ -70,60 +70,61 @@ if ($_POST['tipo'] == 'candidatos_por_necessidade') {
 		, inscrito.especial
 		FROM
 			inscrito
-				INNER JOIN localprova ON inscrito.localprova = localprova.id
+				LEFT JOIN localprova ON inscrito.localprova = localprova.id
 				INNER JOIN campus ON campus.id = inscrito.campus
-				INNER JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
-				INNER JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
-		WHERE especial not REGEXP 'N(A|Ã|&Atilde;)O'
+				LEFT JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
+				LEFT JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
+		WHERE inscrito.vaga_especial = 'SIM'
 SQL;
 	} else {
 		$sql .= <<<SQL
 		 FROM
 			inscrito
-				INNER JOIN localprova ON inscrito.localprova = localprova.id
+				LEFT JOIN localprova ON inscrito.localprova = localprova.id
 				INNER JOIN campus ON campus.id = inscrito.campus
-				INNER JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
-				INNER JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
-		WHERE especial REGEXP 'N(A|Ã|&Atilde;)O'
+				LEFT JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
+				LEFT JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
+		WHERE inscrito.vaga_especial REGEXP 'N(A|Ã|&Atilde;)O'
 SQL;
 	}
 } elseif ($_POST['tipo'] == 'relacao_cadidatos2') {
-	if ($_POST['filtro_pagamento']) {
+	if ($_POST['filtro_pagamento'] === '1') {
 		$sql .= <<<SQL
 		, pagamentos.datapagamento
 		FROM
 			inscrito
-				INNER JOIN localprova ON inscrito.localprova = localprova.id
+				LEFT JOIN localprova ON inscrito.localprova = localprova.id
 				INNER JOIN campus ON campus.id = inscrito.campus
-				INNER JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
-				INNER JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
-				INNER JOIN pagamentos ON pagamentos.id_inscrito = inscrito.numinscricao
+				LEFT JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
+				LEFT JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
+				INNER JOIN pagamentos ON ABS(pagamentos.id_inscrito) = ABS(inscrito.numinscricao)
 SQL;
-	} elseif ($_POST['filtro_pagamento'] === 0) {
+	} elseif ($_POST['filtro_pagamento'] === '0') {
 		$sql .= <<<SQL
 		 FROM
 			inscrito
-				INNER JOIN localprova ON inscrito.localprova = localprova.id
+				LEFT JOIN localprova ON inscrito.localprova = localprova.id
 				INNER JOIN campus ON campus.id = inscrito.campus
-				INNER JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
-				INNER JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
-				LEFT JOIN pagamentos ON pagamentos.id_inscrito = inscrito.numinscricao
-		WHERE pagamentos.id IS NULL
+				LEFT JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
+				LEFT JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
+		WHERE ABS(inscrito.numinscricao) NOT IN (SELECT ABS(id_inscrito) FROM pagamentos)
 SQL;
 	} else {
 		$sql .= <<<SQL
 		 FROM
 			inscrito
-				INNER JOIN localprova ON inscrito.localprova = localprova.id
-				INNER JOIN campus ON campus.id = inscrito.campus
-				INNER JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
-				INNER JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
+				LEFT JOIN localprova ON inscrito.localprova = localprova.id
+				LEFT JOIN campus ON campus.id = inscrito.campus
+				LEFT JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
+				LEFT JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
 SQL;
 	}
 }
 $sql .= <<<SQL
  ORDER BY campus.id, inscrito.id
+LIMIT 2000
 SQL;
+
 $objPHPExcel = new PHPExcel();
 
 function setCabecalho($objPHPExcel, $colunas) {
