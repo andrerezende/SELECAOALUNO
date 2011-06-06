@@ -25,7 +25,7 @@
 		var nome            = document.getElementById("nome");
 		var endereco        = document.getElementById("endereco");
 		var bairro          = document.getElementById("bairro");
-		//var cep             = document.getElementById("cep");
+		var cep             = document.getElementById("cep");
 		var cidade          = document.getElementById("cidade");
 		var estado          = document.getElementById("estado");
 		var rg              = document.getElementById("rg");
@@ -95,6 +95,10 @@
 		} else if (bairro.value == "") {
 			alert('Informe o bairro!');
 			bairro.focus();
+			resultado = false;
+		} else if (cep.value == "") {
+			alert('Informe o CEP!');
+			cep.focus();
 			resultado = false;
 		} else if (cidade.value == "") {
 			alert('Informe a cidade!');
