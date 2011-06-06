@@ -440,6 +440,7 @@ if (count($objinscrito) == 0){
 					<span class="textoSobrescrito">*</span>
 					&nbsp;&nbsp;CEP:&nbsp;&nbsp;
 					<input name="cep" type="text" id="cep" tabindex=14 onkeypress="Mascara('CEP',this,event); return Onlynumber(event);" size='09' maxlength="09" alt="CEP" value="<?echo($objinscrito[0]->getcep()); ?>" />
+					<span class="textoSobrescrito">*</span>
 				</td>
 			</tr>
 
@@ -688,19 +689,6 @@ if (count($objinscrito) == 0){
 							?>
 						</select>
 						<span class="textoSobrescrito">* Caso positivo, veja as condi&ccedil;&otilde;es de atendimento no Edital<br /></span>
-					</td>
-				</tr>
-
-				<tr>
-					<td></td>
-					<td>
-						<span class="textoSobrescrito">
-								&nbsp;&nbsp;&nbsp;&nbsp;
-								&nbsp;&nbsp;&nbsp;&nbsp;
-								&nbsp;&nbsp;&nbsp;&nbsp;
-								&nbsp;&nbsp;
-								* Caso a modalidade do curso seja PROEJA, ignore este campo
-						</span>
 					</td>
 				</tr>
 

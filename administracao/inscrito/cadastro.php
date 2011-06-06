@@ -464,6 +464,7 @@
                         <span class="textoSobrescrito">*</span>
                         &nbsp;&nbsp;CEP:&nbsp;&nbsp;
                         <input name="cep" type="text" id="cep" tabindex=14 onkeypress="Mascara('CEP',this,event); return Onlynumber(event);" size='09' maxlength="09" alt="CEP" />
+                        <span class="textoSobrescrito">*</span>
                     </td>
                 </tr>
 
@@ -645,19 +646,6 @@
                         </span>
                     </td>
                 </tr>
-
-               	<tr>
-					<td></td>
-					<td>
-						<span class="textoSobrescrito">
-								&nbsp;&nbsp;&nbsp;&nbsp;
-								&nbsp;&nbsp;&nbsp;&nbsp;
-								&nbsp;&nbsp;&nbsp;&nbsp;
-								&nbsp;&nbsp;
-								* Caso a modalidade do curso seja PROEJA, ignore este campo
-						</span>
-					</td>
-				</tr>
 
                 <tr>
                     <td height="28" align='left'><label for=vaga_especial>Concorrer &agrave;s vagas reservadas para alunos com Necessidades Especiais:</label></td>
