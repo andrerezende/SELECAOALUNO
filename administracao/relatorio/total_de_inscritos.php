@@ -62,16 +62,14 @@ SQL;
 		$sql .= <<<SQL
 		, pagamentos.datapagamento
 		FROM curso
-			LEFT JOIN inscrito_curso ON curso.cod_curso = inscrito_curso.cod_curso
 			INNER JOIN campus ON campus.id = curso.campus
-			LEFT JOIN inscrito ON inscrito_curso.id_inscrito = inscrito.id
+			LEFT JOIN inscrito ON curso.cod_curso = inscrito.curso
 			INNER JOIN pagamentos ON ABS(pagamentos.id_inscrito) = ABS(inscrito.numinscricao)
 SQL;
 	} elseif ($_POST['filtro_pagamento'] === "0") {
 		$sql .= <<<SQL
 		FROM curso
-			LEFT JOIN inscrito_curso ON curso.cod_curso = inscrito_curso.cod_curso
-			LEFT JOIN inscrito ON inscrito_curso.id_inscrito = inscrito.id
+			LEFT JOIN inscrito ON curso.cod_curso = inscrito.curso
 			INNER JOIN campus ON campus.id = curso.campus
 		WHERE
 			ABS(inscrito.numinscricao) NOT IN (SELECT ABS(id_inscrito) FROM pagamentos)
@@ -80,8 +78,7 @@ SQL;
 		$sql .= <<<SQL
 		FROM curso
 			INNER JOIN campus ON campus.id = curso.campus
-			LEFT JOIN inscrito_curso ON curso.cod_curso = inscrito_curso.cod_curso
-			LEFT JOIN inscrito ON inscrito_curso.id_inscrito = inscrito.id
+			LEFT JOIN inscrito ON curso.cod_curso = inscrito.curso
 SQL;
 	}
 	$sql .= <<<SQL

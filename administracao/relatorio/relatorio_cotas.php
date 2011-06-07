@@ -91,8 +91,7 @@ SELECT
 FROM
 	inscrito
 		LEFT JOIN campus ON campus.id = inscrito.campus
-		LEFT JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
-		LEFT JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
+		LEFT JOIN curso ON curso.cod_curso = inscrito.curso
 		INNER JOIN pagamentos ON ABS(pagamentos.id_inscrito) = ABS(inscrito.numinscricao)
 SQL;
 if (!is_array($where)) {

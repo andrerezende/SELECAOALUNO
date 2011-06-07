@@ -72,8 +72,7 @@ if ($_POST['tipo'] == 'candidatos_por_necessidade') {
 			inscrito
 				LEFT JOIN localprova ON inscrito.localprova = localprova.id
 				INNER JOIN campus ON campus.id = inscrito.campus
-				LEFT JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
-				LEFT JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
+				LEFT JOIN curso ON curso.cod_curso = inscrito.curso
 		WHERE inscrito.vaga_especial = 'SIM'
 SQL;
 	} else {
@@ -82,8 +81,7 @@ SQL;
 			inscrito
 				LEFT JOIN localprova ON inscrito.localprova = localprova.id
 				INNER JOIN campus ON campus.id = inscrito.campus
-				LEFT JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
-				LEFT JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
+				LEFT JOIN curso ON curso.cod_curso = inscrito.curso
 		WHERE inscrito.vaga_especial REGEXP 'N(A|Ã|&Atilde;)O'
 SQL;
 	}
@@ -95,8 +93,7 @@ SQL;
 			inscrito
 				LEFT JOIN localprova ON inscrito.localprova = localprova.id
 				INNER JOIN campus ON campus.id = inscrito.campus
-				LEFT JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
-				LEFT JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
+				LEFT JOIN curso ON curso.cod_curso = inscrito.curso
 				INNER JOIN pagamentos ON ABS(pagamentos.id_inscrito) = ABS(inscrito.numinscricao)
 SQL;
 	} elseif ($_POST['filtro_pagamento'] === '0') {
@@ -105,8 +102,7 @@ SQL;
 			inscrito
 				LEFT JOIN localprova ON inscrito.localprova = localprova.id
 				INNER JOIN campus ON campus.id = inscrito.campus
-				LEFT JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
-				LEFT JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
+				LEFT JOIN curso ON curso.cod_curso = inscrito.curso
 		WHERE ABS(inscrito.numinscricao) NOT IN (SELECT ABS(id_inscrito) FROM pagamentos)
 SQL;
 	} else {
@@ -115,8 +111,7 @@ SQL;
 			inscrito
 				LEFT JOIN localprova ON inscrito.localprova = localprova.id
 				LEFT JOIN campus ON campus.id = inscrito.campus
-				LEFT JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
-				LEFT JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
+				LEFT JOIN curso ON curso.cod_curso = inscrito.curso
 SQL;
 	}
 }

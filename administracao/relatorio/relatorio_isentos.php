@@ -66,43 +66,12 @@ SELECT
 	inscrito.especial_prova_descricao AS inscrito_especial_prova_descricao,
 	inscrito.vaga_especial AS inscrito_vaga_especial,
 	inscrito.especial
-		FROM
-			inscrito
-				INNER JOIN localprova ON inscrito.localprova = localprova.id
-				INNER JOIN campus ON campus.id = inscrito.campus
-				INNER JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
-				INNER JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
-		WHERE cast(ultima_alteracao as DATE) <= cast('{$data}' as DATE)
-				AND isencao = 'SIM'
- GROUP BY
-	campus.id,
-	campus.nome,
-	curso.nome,
-	localprova.nome,
-	inscrito.nome,
-	inscrito.numinscricao,
-	inscrito.cpf,
-	inscrito.rg,
-	inscrito.orgaoexpedidor,
-	inscrito.uf,
-	inscrito.dataexpedicao,
-	inscrito.nacionalidade,
-	inscrito.datanascimento,
-	inscrito.sexo,
-	inscrito.endereco,
-	inscrito.cep,
-	inscrito.cidade,
-	inscrito.estado,
-	inscrito.telefone,
-	inscrito.celular,
-	inscrito.email,
-	inscrito.estadocivil,
-	inscrito.especial,
-	inscrito.especial_descricao,
-	inscrito.isencao,
-	inscrito.especial_prova,
-	inscrito.especial_prova_descricao,
-	inscrito.vaga_especial
+FROM inscrito
+		INNER JOIN localprova ON inscrito.localprova = localprova.id
+		INNER JOIN campus ON campus.id = inscrito.campus
+		INNER JOIN curso ON curso.cod_curso = inscrito.curso
+WHERE cast(ultima_alteracao as DATE) <= cast('{$data}' as DATE)
+		AND isencao = 'SIM'
 ORDER BY campus.id, inscrito.id
 SQL;
 

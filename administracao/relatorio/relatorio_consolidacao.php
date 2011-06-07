@@ -43,8 +43,7 @@ FROM
 	inscrito
 		INNER JOIN pagamentos ON pagamentos.id_inscrito = inscrito.numinscricao
 		INNER JOIN campus ON campus.id = inscrito.campus
-		INNER JOIN inscrito_curso ON inscrito_curso.id_inscrito = inscrito.id
-		INNER JOIN curso ON curso.cod_curso = inscrito_curso.cod_curso
+		INNER JOIN curso ON curso.cod_curso = inscrito.curso
 ORDER BY campus.id, inscrito.id
 SQL;
 $objPHPExcel = new PHPExcel();
