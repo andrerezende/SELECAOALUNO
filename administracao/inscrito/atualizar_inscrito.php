@@ -26,7 +26,7 @@ $inscrito = new Inscrito($nome, $endereco, $bairro, $cep, $cidade, $estado,
 			$email, $cpf, $rg, $especial, $senha, $nacionalidade, $telefone, null, $celular, $datanascimento,
 			$sexo, $estadocivil, $orgaoexpedidor, $uf, $dataexpedicao, $especial_descricao, $responsavel,
 			$isencao, $declaracao, $localprova, $numinscricao, $especial_prova, $especial_prova_descricao,
-			$vaga_especial, $vaga_rede_publica, $vaga_rural, $campus, $id);
+			$vaga_especial, $vaga_rede_publica, $vaga_rural, $campus, $id, null, null, $curso);
 $resultado = $inscrito->atualizar($conexao);
 
 if ($resultado) {

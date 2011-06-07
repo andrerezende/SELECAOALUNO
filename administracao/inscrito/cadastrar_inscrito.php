@@ -29,7 +29,7 @@ $inscrito = new Inscrito($nome, $endereco, $bairro, $cep, $cidade, $estado,
 			$email, $cpf, $rg, $especial, $senha, $nacionalidade, $telefone, null, $celular, $datanascimento,
 			$sexo, $estadocivil, $orgaoexpedidor, $uf, $dataexpedicao, $especial_descricao, $responsavel,
 			$isencao, $declaracao, $localprova, $numinscricao, $especial_prova, $especial_prova_descricao,
-			$vaga_especial, $vaga_rede_publica, $vaga_rural, $campus);
+			$vaga_especial, $vaga_rede_publica, $vaga_rural, $campus, null, null, null, $curso);
 $existe = $inscrito->Existe($conexao);
 
 if ($existe) {
@@ -57,18 +57,16 @@ if ($existe) {
 		} else {
 			$banco->rollbackTransaction();
 		}
-
-		echo("<div align=".'"'."center".'"'.">");
-			echo("<img src=".'"'."../../imgs/topo2/topo_formulario.png".'"'." alt=".'"'."Instituto Federal Baiano".'"'." />");
-			echo("<table border='0'>");
-			echo("	<tr>");
-			echo("		<td><div>Ficha de Inscri&ccedil;&atilde;o preenchido com sucesso. Utilize o n&uacute;mero do CPF informado (<b>".$cpf."</b>) para imprimir a ficha de inscri&ccedil;&atilde;o.</div></td>");
-			echo("	</tr>");
-			echo("	<tr>");
 ?>
+			<div align="center">
+				<img src="../../imgs/topo2/topo_formulario.png" alt="Instituto Federal Baiano" />
+				<table border='0'>
+					<tr>
+						<td><div>Ficha de Inscri&ccedil;&atilde;o preenchido com sucesso. Utilize o n&uacute;mero do CPF informado (<b><?php echo $cpf; ?></b>) para imprimir a ficha de inscri&ccedil;&atilde;o.</div></td>
+					</tr>
 					<tr>
 						<td>
-							<div align='center'>
+							<div align="center">
 								<form id="frmeditar" name="frmeditar" action="editar.php" method="post">
 									<input type="hidden" name="id" value="<?php echo($id_inscrito);?>" />
 									<a href="#" onclick="document.forms['frmeditar'].submit();">Editar Inscri&ccedil;&atilde;o</a>
@@ -88,19 +86,18 @@ if ($existe) {
 					</tr>
 					<tr>
                         <td>
-                            <div align='center'>
-                                <form id='frmboleto' name='frmboleto' action='../boleto/boleto_bb.php' method='post'>
-                                    <input type='hidden' name='id' value="<?php echo($id_inscrito);?>" />
-                                    <a href='#' onclick="document.forms['frmboleto'].submit();">Imprimir Boleto para Pagamento</a>
+                            <div align="center">
+                                <form id="frmboleto" name="frmboleto" action="../boleto/boleto_bb.php" method="post">
+                                    <input type="hidden" name="id" value="<?php echo($id_inscrito);?>" />
+                                    <a href="#" onclick="document.forms['frmboleto'].submit();">Imprimir Boleto para Pagamento</a>
                                 </form>
                             </div>
                         </td>
+                        <td align="center"><br /><div><a href="../../index.php">P&aacute;gina Inicial</a></div></td>
 					</tr>
+				</table>
+			</div>
 <?php
-			echo("		<td align='center'><br /><div><a href='../../index.php'>P&aacute;gina Inicial</a></div></td>");
-			echo("	</tr>");
-			echo("</table>");
-			echo("</div>");
 } else {
 	echo("<div align='center'");
 		echo("<img src="."../../imgs/topo2/topo_formulario.png"." alt="."Instituto Federal Baiano"." />");
@@ -113,9 +110,7 @@ if ($existe) {
 	echo("</div>");
 	}
 }
-
 $banco->DesconectarDB($conexao);
-
 ?>
 </body>
 </html>
