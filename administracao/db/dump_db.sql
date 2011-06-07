@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `campus` (
   `nome` varchar(128) DEFAULT NULL,
   `ativo` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `curso` (
   `campus` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_curso`),
   KEY `fk_curso_campus` (`campus`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=73 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `inscrito` (
   KEY `fk_inscrito_curso` (`curso`),
   KEY `fk_inscrito_campus` (`campus`),
   KEY `fk_inscrito_localprova` (`localprova`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2292 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `localprova` (
   `campus` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_localprova_campus` (`campus`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `pagamentos` (
   `dataimportacao` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ID_INSCRITO` (`id_inscrito`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=718 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
