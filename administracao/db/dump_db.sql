@@ -1,4 +1,6 @@
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT=0;
+START TRANSACTION;
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -79,11 +81,12 @@ CREATE TABLE IF NOT EXISTS `inscrito` (
   `cadastro_unico` varchar(11) DEFAULT NULL,
   `data_cadastro` datetime DEFAULT NULL,
   `ultima_alteracao` datetime DEFAULT NULL,
-  `curso` int(11) DEFAULT NULL,
+  `curso` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_inscrito_curso` (`curso`),
+  UNIQUE KEY `unique_numinscricao` (`numinscricao`),
   KEY `fk_inscrito_campus` (`campus`),
-  KEY `fk_inscrito_localprova` (`localprova`)
+  KEY `fk_inscrito_localprova` (`localprova`),
+  KEY `fk_inscrito_curso` (`curso`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -157,10 +160,12 @@ ALTER TABLE `curso`
 --
 ALTER TABLE `inscrito`
   ADD CONSTRAINT `fk_inscrito_campus` FOREIGN KEY (`campus`) REFERENCES `campus` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_inscrito_localprova` FOREIGN KEY (`localprova`) REFERENCES `localprova` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_inscrito_localprova` FOREIGN KEY (`localprova`) REFERENCES `localprova` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_inscrito_curso` FOREIGN KEY (`curso`) REFERENCES `curso` (`cod_curso`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Restrições para a tabela `localprova`
 --
 ALTER TABLE `localprova`
   ADD CONSTRAINT `fk_localprova_campus` FOREIGN KEY (`campus`) REFERENCES `campus` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+COMMIT;
