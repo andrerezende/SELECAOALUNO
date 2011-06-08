@@ -4,7 +4,7 @@ class Curso {
 	protected $nome;
 	protected $id_campus;
 
-	public function Curso($a, $b, $c) {
+	public function Curso($a = null, $b = null, $c = null) {
 		$this->cod_curso = $a;
 		$this->nome = $b;
 		$this->id_campus = $c;

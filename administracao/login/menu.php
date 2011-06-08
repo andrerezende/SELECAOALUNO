@@ -47,6 +47,8 @@ else :
 	endif;
 	?>
 	<ul class="menu_admin">
+		<li><a href="../campus/cadastrar_campus.php">Cadastrar Campus</a></li>
+		<li><a href="../campus/listar_campus.php" target="_self">Listar Campus</a></li>
 		<li><a href="../curso/cadastrar_curso.php">Cadastrar Curso</a></li>
 		<li><a href="../curso/listar_curso.php" target="_self">Listar Curso</a></li>
 		<li><a href="../inscrito/cadastro.php">Cadastrar Inscrito</a></li>

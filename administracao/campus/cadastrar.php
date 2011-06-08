@@ -1,20 +1,19 @@
 <?php
 session_start();
 include("../classes/DB.php");
-include("../classes/Curso.php");
+include("../classes/Campus.php");
 
 $nome = addslashes($_POST['nome']);
-$campus = addslashes($_POST['campus']);
 
 /* Acesso ao banco de dados */
 $banco = DB::getInstance();
 $conexao = $banco->ConectarDB();
 
-$curso = new Curso(null,$nome, $campus);
-$resultado = $curso->Inserir($conexao);
+$campus = new Campus(null, $nome);
+$resultado = $campus->Inserir($conexao);
 
-if ($resutado == true) {
-	$_SESSION['flashMensagem'] = 'Curso cadastrado com sucesso.';
+if ($resultado == true) {
+	$_SESSION['flashMensagem'] = 'Campus cadastrado com sucesso.';
 } else {
 	$_SESSION['flashMensagem'] = 'Problemas ao efetuar o transa&ccedil;&atilde;o.';
 }
