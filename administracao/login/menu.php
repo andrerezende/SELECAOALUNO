@@ -51,6 +51,8 @@ else :
 		<li><a href="../campus/listar_campus.php" target="_self">Listar Campus</a></li>
 		<li><a href="../curso/cadastrar_curso.php">Cadastrar Curso</a></li>
 		<li><a href="../curso/listar_curso.php" target="_self">Listar Curso</a></li>
+		<li><a href="../localprova/cadastrar_localprova.php">Cadastrar Local de Prova</a></li>
+		<li><a href="../localprova/listar_localprova.php" target="_self">Listar Local de Prova</a></li>
 		<li><a href="../inscrito/cadastro.php">Cadastrar Inscrito</a></li>
 		<li><a href="../inscrito/listar_inscrito.php" target="_self">Listar Inscrito</a></li>
 		<li><a href="../relatorio/relatorios.php" target="_self">Relat&oacute;rios</a></li>

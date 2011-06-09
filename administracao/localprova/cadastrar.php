@@ -1,39 +1,25 @@
 <?php
 session_start();
 include("../classes/DB.php");
-include("../classes/Curso.php");
+include("../classes/Localprova.php");
 
-$nome = addslashes($_POST['nome']);
+$nome   = addslashes($_POST['nome']);
 $campus = addslashes($_POST['campus']);
 
 /* Acesso ao banco de dados */
-$banco = DB::getInstance();
+$banco   = DB::getInstance();
 $conexao = $banco->ConectarDB();
 
-$curso = new Curso(null,$nome, $campus);
-$resultado = $curso->Inserir($conexao);
+$localprova = new Localprova(null, $nome, $campus);
+$resultado = $localprova->Inserir($conexao);
 
 if ($resultado == true) {
-	$_SESSION['flashMensagem'] = 'Curso cadastrado com sucesso.';
+	$_SESSION['flashMensagem'] = 'Local de Prova cadastrado com sucesso.';
 } else {
 	$_SESSION['flashMensagem'] = 'Problemas ao efetuar o transa&ccedil;&atilde;o.';
 }
 header('Location: ../login/menu.php');
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<title>Processo Seletivo para Ingresso de Estudantes - 2011.2</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<link href="../../estilo_selecao.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript">
-	function delayer(){
-		window.location = '../login/login.php';
-	}
-	</script>
-</head>
-<body onload="setTimeout('delayer()', 1000)">
-<?php
+
 if ($resutado == true) {
 	echo("<table width='90%' border='0'>");
 	echo("  <tr>");
@@ -48,6 +34,3 @@ if ($resutado == true) {
 	echo("</table>");
 }
 $banco->DesconectarDB($conexao);
-?>
-</body>
-</html>

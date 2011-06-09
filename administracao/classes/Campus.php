@@ -41,16 +41,11 @@ class Campus {
 
 	public function SelectNomeCampus($sock, $pidCampus) {
 		$ssql = "SELECT id, nome FROM campus A " ;
-		$ssql .= " WHERE id = '$pidCampus' ";
+		$ssql .= " WHERE id = $pidCampus";
 		$rs = mysql_query($ssql, $sock);
 
-		$ar = array();
-
 		$linha = mysql_fetch_row($rs);
-		$obj = new Campus($linha[0], $linha[1]);
-		$ar[] = $obj;
-
-		return $ar;
+		return new Campus($linha[0], $linha[1]);
 	}
 
 	public function Inserir($sock) {

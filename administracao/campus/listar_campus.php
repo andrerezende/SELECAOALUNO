@@ -36,7 +36,7 @@ if (!$_SESSION['validacao']) {
         	<div id="topo2" align="left"><img src="../../imgs/topo2/topo2.png" alt="Instituto Federal Baiano" /></div>
 			<div align="right" class="admin_logout"><p><a href="../login/logout.php" target="_self">Logout</a></p></div>
 			<div align="center"><h2>&Aacute;rea Administrativa - Cursos</h2></div>
-	<?php
+<?php
 	/* Acesso ao banco de dados */
 	$banco = DB::getInstance();
 	$conexao = $banco->ConectarDB();

@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 include("../classes/DB.php");
 include("../classes/Curso.php");
 
@@ -46,7 +45,7 @@ if (!$_SESSION['validacao']) {
 $banco = DB::getInstance();
 $conexao = $banco->ConectarDB();
 
-$curso = new Curso(null, null, null);
+$curso = new Curso();
 $vetorcurso = $curso->SelectByAll($conexao);
 
 echo("<form id='excluircurso' name='excluircurso' action='' method='post'>");
