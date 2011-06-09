@@ -644,4 +644,10 @@ class Inscrito {
 		return $curso;
 	}
 
+	public function homologarIsento($sock, $ids) {
+		$ssql = "UPDATE inscrito SET isento_homologado = 1 WHERE id IN ($ids) AND isencao = 'SIM'";
+
+		return mysql_query($ssql, $sock);
+	}
+
 }

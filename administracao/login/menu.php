@@ -56,6 +56,7 @@ else :
 		<li><a href="../inscrito/cadastro.php">Cadastrar Inscrito</a></li>
 		<li><a href="../inscrito/listar_inscrito.php" target="_self">Listar Inscrito</a></li>
 		<li><a href="../relatorio/relatorios.php" target="_self">Relat&oacute;rios</a></li>
+		<li><a href="../inscrito/homologar_isentos.php" target="_self">Homologar Isentos</a></li>
 		<li><a href="../conciliacao/configuracao.php" target="_self">Concilia&ccedil;&atilde;o</a></li>
 	</ul>
 </div></div>
